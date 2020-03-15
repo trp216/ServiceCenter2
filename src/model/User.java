@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class User {
+public class User implements Comparable<String>{
 	
 	public static String ONE =  "CEDULA_DE_CIUDADANIA";
 	public static String TWO = "TARJETA_DE_IDENTIDAD";
@@ -92,7 +92,7 @@ public class User {
 		return uturn;
 	}
 	
-	public void sortTurnsByType() {
+	public void sortTurnsByType() {//by selection sort
 		for(int i=0;i<uturn.size();i++) {
 			Turn min = uturn.get(i);
 			int which = i;
@@ -117,14 +117,43 @@ public class User {
 		}
 	}
 	
-	public String getTurnsReportByTurnType() {
-		
+	public void sortTurnsByDuration() {//by insertion sort
+		for(int i = 1;i<uturn.size();i++) {
+			for(int j=i;j>0&&uturn.get(j-1).getTurntype().getDuration()>uturn.get(j).getTurntype().getDuration();j--) {
+				Turn temp = uturn.get(j);
+				uturn.set(j, uturn.get(j-1));
+				uturn.set(j-1, temp);
+			}
+		}
+	}
+	
+	public String getTurnsReport() {
+		String msg = "Turns in which the person was present:\n";
+		for(int i = 0;i<uturn.size();i++) {
+			msg+=uturn.get(i).getName() + ";" + uturn.get(i).getState();
+		}
+		if(absent.isEmpty()==false) {
+			msg+="\nTurns in which the person was absent:\n";
+			for(int i = 0;i<absent.size();i++) {
+				msg+=absent.get(i).getName() + ";" + absent.get(i).getState();
+			}
+		}
+		return msg;
 	}
 	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", idtype=" + idtype + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", phone=" + phone + ", dir=" + dir + ", uturn=" + uturn + "]";
+	}
+	@Override
+	public int compareTo(String arg0) {
+		if(id.compareTo(arg0)==0)
+			return 0;
+		if(id.compareTo(arg0)>0)
+			return 1;
+		else
+			return -1;
 	}
 	
 }

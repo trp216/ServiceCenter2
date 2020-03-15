@@ -4,7 +4,7 @@ public class Turn {
 	
 	private char actualLetter;
 	private int actualNumber;
-	private boolean state;
+	private boolean state; //true=attended;false=not yet atttended
 	
 	private TurnType turntype;
 
@@ -14,8 +14,11 @@ public class Turn {
 		state = false;
 	}
 
-	public boolean getState() {
-		return state;
+	public String getState() {
+		if(state==false)
+			return "unnatended";
+		else
+			return "attended";
 	}
 
 	public void setState(boolean state) {
