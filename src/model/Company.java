@@ -45,15 +45,58 @@ public class Company {
 		});
 	}
 	
-	public String getTurnsReport(String id) {
-		User u = searchUser(id);
-		int rand = (int)(Math.random() * 2)+1; 
-		if(rand ==1) 
-			u.sortTurnsByDuration();
-		else {
-			u.sortTurnsByType();;
+	public User searchUserByIdBinary(String id) {//using binary search
+		boolean found = false;
+		User x = null;
+		int start = 0;
+		int end = users.size()-1;
+		while(start<=end &!found) {
+			int middle = (start+end)/2;
+			if(users.get(middle).getId().compareTo(id)==0) {
+				found = true;
+				x = users.get(middle);
+			}
+			else if(users.get(middle).getId().compareTo(id)>0) {
+				end = middle-1;
+			}
+			else {
+				start = middle+1;
+			}
 		}
-		return u.getTurnsReport();
+		return x;
 	}
-
+	
+	public User searchUser(String id) {
+		User x = null;
+		boolean found = false;
+		for(int i = 0;i<users.size() && !found;i++) {
+			if(users.get(i).getId().equals(id)) {
+				x = users.get(i);
+				found = true;
+			}
+		}
+		return x;
+	}
+	
+	public String getTurnsReport(String id) {
+		User u = null;
+		String msg = "";
+		
+		int rs = (int)(Math.random() * 2)+1; 
+		if(rs ==1) 
+			u = searchUserByIdBinary(id);
+		else {
+			u = searchUser(id);
+		}
+		
+		if(u!=null) {
+			int rand = (int)(Math.random() * 2)+1; 
+			if(rand ==1) 
+				u.sortTurnsByDuration();
+			else {
+				u.sortTurnsByType();;
+			}
+			msg = u.getTurnsReport();
+		}return msg;
+	}
 }

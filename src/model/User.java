@@ -1,9 +1,14 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User implements Comparable<String>{
+public class User implements Comparable<String>,Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static String ONE =  "CEDULA_DE_CIUDADANIA";
 	public static String TWO = "TARJETA_DE_IDENTIDAD";
 	public static String THREE = "REGISTRO_CIVIL";
