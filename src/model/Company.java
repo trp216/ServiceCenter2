@@ -1,5 +1,10 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,6 +21,40 @@ public class Company {
 		users = new ArrayList<User>();
 	}
 
+	public void generateRandomUsers(int q) throws IOException {
+		BufferedReader brn = new BufferedReader(new FileReader(new File("data/name.csv")));
+		BufferedReader brl = new BufferedReader(new FileReader(new File("data/lastname.csv")));
+		BufferedReader bri = new BufferedReader(new FileReader(new File("data/id.csv")));
+
+		
+		String[] arnl = new String[q];
+		
+		String ln = brn.readLine();
+		String ll = brl.readLine();
+		String li = bri.readLine();
+		
+		if(ln!=null && ll!=null && li!=null) {
+			ln = brn.readLine();
+			ll = brl.readLine();
+			li = bri.readLine();
+			while(ln!=null&&ll!=null&&li!=null &&q>0) {
+				String n = ln;
+				String lll = ll;
+				String i = li;
+				int rand = (int)(Math.random() * 5)+1; 
+				User u = new User(i,rand,n,lll);
+				users.add(u);
+				q--;
+				ln = brn.readLine();
+				ll = brl.readLine();
+				li = bri.readLine();
+			}
+		}
+		
+		brn.close();
+		brl.close();
+		bri.close();
+	}
 	
 	public void sortUsersById() {//by bubble sort
 		for(int i=users.size();i>0;i--) {

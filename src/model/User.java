@@ -19,8 +19,6 @@ public class User implements Comparable<String>,Serializable{
 	private String idtype;
 	private String firstName;
 	private String lastName;
-	private String phone;
-	private String dir;
 	
 	private boolean suspend;
 	
@@ -28,12 +26,10 @@ public class User implements Comparable<String>,Serializable{
 	
 	private ArrayList<Turn> uturn;
 	
-	public User(String id, int idtype, String firstName, String lastName, String phone, String dir) {
+	public User(String id, int idtype, String firstName, String lastName) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.phone = phone;
-		this.dir = dir;
 		setIdtype(idtype);
 		suspend = false;
 		uturn = new ArrayList<Turn>();
@@ -71,18 +67,6 @@ public class User implements Comparable<String>,Serializable{
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	public String getDir() {
-		return dir;
-	}
-	public void setDir(String dir) {
-		this.dir = dir;
 	}
 	public boolean getSuspend() {
 		return suspend;
@@ -149,7 +133,7 @@ public class User implements Comparable<String>,Serializable{
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", idtype=" + idtype + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", phone=" + phone + ", dir=" + dir + ", uturn=" + uturn + "]";
+				+ "]";
 	}
 	@Override
 	public int compareTo(String arg0) {
