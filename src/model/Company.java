@@ -3,8 +3,11 @@ package model;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -73,6 +76,22 @@ public class Company {
 	public void addTurnType(String n, float d) {
 		TurnType t = new TurnType(d,n);
 		turnTypes.add(t);
+	}
+	
+	public void saveUsers() throws FileNotFoundException, IOException {
+		File f = new File("data/users.txt");
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f));
+		for(int i = 0;i<users.size();i++) {
+			oos.writeObject(users.get(i));
+		}
+		oos.close();
+	}
+	
+	public void saveReport(String msg) throws IOException {
+		File f = new File("data/reports.txt");
+		FileWriter fw = new FileWriter(f);
+		fw.write(msg);
+		fw.close();
 	}
 	
 	public void sortUsersByFirstName() {//using collections.sort and Comparator
