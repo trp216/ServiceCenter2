@@ -12,12 +12,12 @@ import java.util.List;
 
 public class Company {
 	
-	private ArrayList<Turn> turns;
+	private ArrayList<TurnType> turnTypes;
 	
 	private ArrayList<User> users;
 	
 	public Company() {
-		turns = new ArrayList<Turn>();
+		turnTypes = new ArrayList<TurnType>();
 		users = new ArrayList<User>();
 	}
 
@@ -55,6 +55,8 @@ public class Company {
 		brl.close();
 		bri.close();
 	}
+
+	
 	
 	public void sortUsersById() {//by bubble sort
 		for(int i=users.size();i>0;i--) {
@@ -66,6 +68,11 @@ public class Company {
 				}
 			}
 		}
+	}
+	
+	public void addTurnType(String n, float d) {
+		TurnType t = new TurnType(d,n);
+		turnTypes.add(t);
 	}
 	
 	public void sortUsersByFirstName() {//using collections.sort and Comparator
